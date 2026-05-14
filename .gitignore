@@ -1,0 +1,45 @@
+# Environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+
+# Data (too large for git)
+data/raw/
+data/processed/
+*.dcm
+
+# Model checkpoints (use MLflow instead)
+checkpoints/
+*.pth
+*.pt
+*.onnx
+
+# MLflow artifacts
+mlruns/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker/postgres-data/
