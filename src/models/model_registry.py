@@ -30,7 +30,7 @@ def save_checkpoint(model: ChestXrayModel, path: str, metadata: dict = None):
 
 
 def load_checkpoint(path: str, device: str = "cuda", **model_kwargs) -> ChestXrayModel:
-    checkpoint = torch.load(path, map_location=device)
+    checkpoint = torch.load(path, map_location=device, weights_only=True)
     model = build_model(device=device, **model_kwargs)
     model.load_state_dict(checkpoint["model_state_dict"])
     model.eval()

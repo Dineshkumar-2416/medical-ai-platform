@@ -97,7 +97,7 @@ def main():
     print("Evaluating best model on test set...")
     from src.training.metrics import compute_metrics, format_metrics
 
-    checkpoint = torch.load(best_model_path, map_location=device)
+    checkpoint = torch.load(best_model_path, map_location=device, weights_only=True)
     model.load_state_dict(checkpoint["model_state_dict"])
     model.eval()
 
