@@ -15,8 +15,8 @@ services:
       - ENVIRONMENT=production
       - PYTHONUNBUFFERED=1
     volumes:
-      # Mount mlruns so experiments persist outside the container
       - ../mlruns:/app/mlruns
+      - ../checkpoints:/app/checkpoints
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c",

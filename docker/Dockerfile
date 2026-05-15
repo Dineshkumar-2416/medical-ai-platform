@@ -29,7 +29,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copied last — changes frequently, but layer cache already has all deps
 COPY src/ ./src/
 COPY configs/ ./configs/
-COPY checkpoints/ ./checkpoints/
+# checkpoints/ is mounted as a volume at runtime — not baked into the image
 
 # ── Environment ───────────────────────────────────────────────────────────────
 ENV PYTHONPATH=/app
