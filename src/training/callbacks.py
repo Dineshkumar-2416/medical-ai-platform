@@ -61,11 +61,14 @@ class ModelCheckpoint:
             if self.best_path and self.best_path.exists():
                 self.best_path.unlink()
 
+            # Convert any numpy scalars to Python native types for weights_only safety
+            clean_meta = {k: float(v) if hasattr(v, 'item') else v
+                          for k, v in (metadata or {}).items()}
             torch.save({
                 "epoch": epoch,
                 "model_state_dict": model.state_dict(),
-                "best_metric": value,
-                "metadata": metadata or {},
+                "best_metric": float(value),
+                "metadata": clean_meta,
             }, save_path)
 
             self.best_path = save_path

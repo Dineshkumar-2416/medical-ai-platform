@@ -13,6 +13,7 @@ import torch
 import torch.nn as nn
 
 os.environ["TORCH_HOME"] = "D:/torch-cache"
+os.environ["MLFLOW_TRACKING_URI"] = "file:///D:/Personal Projects/Project_2/mlruns"
 sys.path.insert(0, ".")
 
 

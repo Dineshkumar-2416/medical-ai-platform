@@ -5,6 +5,7 @@ Run with:
     streamlit run app.py
 """
 import io
+import os
 import base64
 import time
 
@@ -14,7 +15,7 @@ from PIL import Image
 import streamlit as st
 
 # ── Config ────────────────────────────────────────────────────────────────────
-API_URL     = "http://localhost:8000"
+API_URL     = os.environ.get("API_URL", "http://localhost:8000")
 PAGE_TITLE  = "Chest X-ray AI Analysis"
 
 st.set_page_config(

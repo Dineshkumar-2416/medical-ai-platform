@@ -116,6 +116,7 @@ class Trainer:
     # ------------------------------------------------------------------
     def fit(self, epochs: int, experiment_name: str = "chest-xray-pneumonia"):
 
+        mlflow.set_tracking_uri("file:///D:/Personal Projects/Project_2/mlruns")
         mlflow.set_experiment(experiment_name)
 
         with mlflow.start_run():
