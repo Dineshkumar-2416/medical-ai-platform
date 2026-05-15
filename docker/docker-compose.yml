@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+
+  # ── FastAPI Inference API ──────────────────────────────────────────
+  api:
+    build:
+      context: ..           # build context = project root
+      dockerfile: docker/Dockerfile
+    image: medical-ai-api:latest
+    container_name: medical-ai-api
+    ports:
+      - "8000:8000"         # host:container
+    environment:
+      - ENVIRONMENT=production
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Mount mlruns so experiments persist outside the container
+      - ../mlruns:/app/mlruns
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import requests; requests.get('http://localhost:8000/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    # ── GPU support (uncomment when running on Linux with nvidia-container-toolkit)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # ── Streamlit Dashboard ────────────────────────────────────────────
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.streamlit
+    image: medical-ai-dashboard:latest
+    container_name: medical-ai-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000    # uses Docker internal DNS, not localhost
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

@@ -1,0 +1,40 @@
+# Never include these in Docker build context
+
+# Data — too large, not needed in container
+data/
+
+# Development artifacts
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+# Environment
+.env
+*.env
+D:/conda-envs/
+
+# Notebooks
+notebooks/
+*.ipynb
+
+# Git
+.git/
+.gitignore
+
+# Torch cache — redownloaded inside container
+.torch-cache/
+D:/torch-cache/
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Docs
+*.pdf
+*.md

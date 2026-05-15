@@ -13,7 +13,8 @@ import time
 import logging
 from contextlib import asynccontextmanager
 
-os.environ["TORCH_HOME"] = "D:/torch-cache"
+# Use env var so Docker can override, fallback to local path
+os.environ.setdefault("TORCH_HOME", os.environ.get("TORCH_HOME", "D:/torch-cache"))
 sys.path.insert(0, ".")
 
 import torch
